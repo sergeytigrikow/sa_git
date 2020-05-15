@@ -1,0 +1,44 @@
+﻿<Window
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:saClient="clr-namespace:SAClient"
+	x:Class="SAClient.SettingsWindow"
+	x:Name="Window"
+	Title="Настройки"
+	Width="490.479" Height="520" ResizeMode="NoResize" Icon="Icons/apps_16.png" Initialized="Window_Initialized">
+    <Window.Resources>
+        <ObjectDataProvider x:Key="Source" ObjectType="{x:Type saClient:UserSettings}"></ObjectDataProvider>
+    </Window.Resources>
+    <Grid x:Name="LayoutRoot" DataContext="{StaticResource Source}">
+        <StackPanel Margin="10 0 10 10">
+            <StackPanel Orientation="Vertical">
+                <TextBlock FontSize="16" Margin="30 15 10 10">IP-адрес сервера:</TextBlock>
+                <TextBox x:Name="TbServIp"  Margin="30 0" Text="{Binding ServerIP}"></TextBox>
+            </StackPanel>
+            <GroupBox FontSize="16" Margin="10 15 10 10">
+                <GroupBox.Header>
+                    Авторизационные данные
+                </GroupBox.Header>
+                <StackPanel>
+                    <TextBlock FontSize="18.667" Margin="10">E-mail:</TextBlock>
+                    <TextBox Margin="10 0" x:Name="TbLogin" Text="{Binding Username}"></TextBox>
+                    <TextBlock FontSize="18.667" Margin="10">Пароль:</TextBlock>
+                    <TextBox Margin="10 0" x:Name="TbPass" Text="{Binding Password}"></TextBox>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox FontSize="16" Margin="10 0 10 10">
+                <GroupBox.Header>
+                    Настройки быстрого запроса
+                </GroupBox.Header>
+                <StackPanel>
+                    <CheckBox FontSize="18.667" Margin="10 0" x:Name="CY" Click="CY_OnClick">ТИЦ</CheckBox>
+                    <CheckBox FontSize="18.667" Margin="10 0" x:Name="PR" Click="PR_OnClick">PR</CheckBox>
+                    <CheckBox FontSize="18.667" Margin="10 0" x:Name="Links" Click="Links_OnClick">Ссылки</CheckBox>
+                    <CheckBox FontSize="18.667" Margin="10 0" x:Name="Customers" Click="Customers_OnClick">Посещаемость</CheckBox>
+                </StackPanel>
+            </GroupBox>
+            <Button Margin="20 0 20 10" MinHeight="30" Click="Button_Click">Сохранить</Button>
+            <Button Margin="20 0 20 10" MaxWidth="250" Click="Button_Click_1">Отмена</Button>
+        </StackPanel>
+    </Grid>
+</Window>

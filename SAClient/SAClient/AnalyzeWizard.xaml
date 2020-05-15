@@ -1,0 +1,61 @@
+﻿<Window
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+	xmlns:requests="clr-namespace:CommonClassLib.Requests;assembly=CommonClassLib"
+	x:Class="SAClient.AnalyzeWizard"
+	x:Name="Window"
+	Title="Мастер создания запросов"
+	Width="640" Height="480" WindowStyle="SingleBorderWindow" ResizeMode="NoResize" Icon="Icons/fastf_32.png" Initialized="AnalyzeWizard_OnInitialized">
+    <Window.Resources>
+        <requests:AnalyzeRequest x:Key="Request" SiteUrl=""></requests:AnalyzeRequest>
+    </Window.Resources>
+    <Grid x:Name="LayoutRoot" DataContext="{StaticResource Request}">
+        <xctk:Wizard FinishButtonClosesWindow="True" BackButtonContent="Назад" CanHelp="True" 
+                     CancelButtonContent="Отмена" NextButtonContent="Далее" Finish="Wizard_OnFinish"
+                     HelpButtonVisibility="Collapsed" FinishButtonContent="Отправить запрос">
+            <xctk:WizardPage x:Name="EnterUrl" 
+                                   Title="Добро пожаловать в мастер формирования запросов!"
+                                   Description="Этот мастер поможет вам пошагово сформировать ваш запрос на анализ. Просто следуйте инструкциям..."
+                                   >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition Height="50"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock>Введите URL адрес анализируемого сайта:</TextBlock>
+                    <TextBox x:Name="TbUrl" Width="350" Grid.Row="1" FontSize="28" FontFamily="Segoe UI" MaxLength="35"
+                             Text="{Binding Path=SiteUrl}"></TextBox>
+                </Grid>
+            </xctk:WizardPage>
+            <xctk:WizardPage x:Name="AnalyzeOptions" PageType="Interior"
+                                   Title="Что вы хотите узнать?"
+                                   Description="Выберите интересующие вас SEO-показатели..."
+                                   CanFinish="True"
+                                   PreviousPage="{Binding ElementName=IntroPage}">
+                <Grid>
+                    <GroupBox>
+                        <GroupBox.Header>
+                            Доступные показатели
+                        </GroupBox.Header>
+                        <StackPanel Margin="20,100" >
+                        <GroupItem>
+                            <CheckBox x:Name="CbCY" Checked="CbCY_OnChecked">ТИЦ</CheckBox>
+                        </GroupItem>
+                        <GroupItem>
+                                <CheckBox x:Name="CbPR" Checked="CbPR_OnChecked">PR</CheckBox>
+                        </GroupItem>
+                        <GroupItem>
+                                <CheckBox x:Name="CbClients" Checked="CbClients_OnChecked">Посещаемость</CheckBox>
+                        </GroupItem>
+                        <GroupItem>
+                                <CheckBox x:Name="CbLinks" Checked="CbLinks_OnChecked">Внешние и внутренние ссылки</CheckBox>
+                        </GroupItem>
+                        </StackPanel>
+                    </GroupBox>
+                </Grid>
+            </xctk:WizardPage>
+        </xctk:Wizard>
+            
+    </Grid>
+</Window>
